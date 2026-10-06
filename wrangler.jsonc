@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "framebuffer",
+  "compatibility_date": "2026-10-01",
+  // Static site: everything is served from the built assets, no Worker script needed.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

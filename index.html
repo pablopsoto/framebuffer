@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Framebuffer</title>
+    <meta name="author" content="Pablo Pérez (@pablopsoto)" />
+    <meta name="description" content="Fifty years of real-time graphics, redrawn live in your browser: vector beams, 8-bit tiles, Mode 7, PlayStation wobble, shaders, PBR, ray tracing and Gaussian splats." />
+    <meta name="theme-color" content="#07080a" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2307080a'/%3E%3Crect x='2' y='2' width='4' height='12' fill='%236dffa0'/%3E%3Crect x='6' y='2' width='4' height='12' fill='%23e45c10'/%3E%3Crect x='10' y='2' width='4' height='12' fill='%237fd3ff'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800&family=IBM+Plex+Mono:wght@400;500&family=Major+Mono+Display&family=Press+Start+2P&family=Pixelify+Sans:wght@500;700&family=Audiowide&family=Rajdhani:wght@600;700&family=Space+Grotesk:wght@500;700&family=Instrument+Serif:ital@0;1&display=swap"
+    />
+  </head>
+  <body>
+    <canvas id="gl" aria-hidden="true"></canvas>
+
+    <header class="top">
+      <a class="mark" href="#hero">Framebuffer</a>
+      <a class="top-link" href="#colophon">About</a>
+    </header>
+
+    <nav class="rail" aria-label="Eras">
+      <a href="#vector" data-for="vector"><span>1979</span></a>
+      <a href="#bit8" data-for="bit8"><span>1985</span></a>
+      <a href="#bit16" data-for="bit16"><span>1991</span></a>
+      <a href="#psx" data-for="psx"><span>1996</span></a>
+      <a href="#sixth" data-for="sixth"><span>2004</span></a>
+      <a href="#pbr" data-for="pbr"><span>2013</span></a>
+      <a href="#raytrace" data-for="raytrace"><span>2018</span></a>
+      <a href="#splats" data-for="splats"><span>2023</span></a>
+    </nav>
+
+    <main>
+      <section id="hero" class="hero">
+        <div class="hero-copy">
+          <p class="kicker">Fifty years of real-time graphics</p>
+          <h1 class="title" aria-label="Framebuffer">
+            <span style="--f: 'Major Mono Display'">F</span><span style="--f: 'Press Start 2P'">R</span><span style="--f: 'Pixelify Sans'">A</span><span style="--f: 'Audiowide'">M</span><span style="--f: 'Rajdhani'">E</span><span style="--f: 'Inter Tight'">B</span><span style="--f: 'Space Grotesk'">U</span><span style="--f: 'Instrument Serif'">F</span><span style="--f: 'Inter Tight'">F</span><span style="--f: 'Major Mono Display'">E</span><span style="--f: 'Press Start 2P'">R</span>
+          </h1>
+          <p class="lede">One valley, one ship, eight eras. Every frame on this page is rendered right now, in your browser, with the technique of its time.</p>
+        </div>
+        <ol class="strips" aria-hidden="true">
+          <li>1979<em>Vector</em></li>
+          <li>1985<em>8-bit</em></li>
+          <li>1991<em>Mode 7</em></li>
+          <li>1996<em>PlayStation</em></li>
+          <li>2004<em>Shaders</em></li>
+          <li>2013<em>PBR</em></li>
+          <li>2018<em>Ray tracing</em></li>
+          <li>2023<em>Splats</em></li>
+        </ol>
+        <a class="scroll-cue" href="#vector">Scroll to begin</a>
+        <p class="no-gl-note">This page draws everything live with WebGL 2, which this browser doesn't offer. Try a recent Chrome, Edge, Firefox or Safari.</p>
+      </section>
+
+      <section id="vector" class="chapter" data-chapter="vector" data-year="1979" data-name="Vector">
+        <article class="card">
+          <p class="era">1979</p>
+          <h2>Lines of light</h2>
+          <p>Before memory for a whole frame was affordable, some arcade machines skipped pixels entirely. A vector monitor steers its electron beam like a pen, tracing only the lines it is told to, straight onto phosphor that glows and slowly fades.</p>
+          <p>There is no resolution to run out of, so edges stay razor sharp. And the fade is why anything that moves leaves a trail. Hiding the lines behind a solid object took extra work, which is why early wireframes often show every edge at once.</p>
+          <p class="how"><b>This frame</b> Lines are drawn into a buffer that never fully clears. Each frame it fades by the decay you choose, then a blur adds the glow.</p>
+          <p class="wild"><b>In the wild</b> <span>Asteroids</span> <span>Battlezone</span> <span>Tempest</span> <span>Vectrex</span> <span>Star Wars</span></p>
+        </article>
+      </section>
+
+      <section id="bit8" class="chapter" data-chapter="bit8" data-year="1985" data-name="8-bit">
+        <article class="card">
+          <p class="era">1985</p>
+          <h2>Four colours at a time</h2>
+          <p>The Nintendo Entertainment System had no frame buffer either. Its picture processor built every scanline on the fly from 8×8 tiles and up to 64 sprites. Each tile could use one small palette: three colours plus a shared background.</p>
+          <p>Artists painted with palette indices, not colours, so changing one palette entry recolours everything that uses it at once. Gradients were dithered; parallax came from changing the scroll position partway down the screen.</p>
+          <p class="how"><b>This frame</b> Every pixel is computed as a 2-bit index, and the palette is applied last. Swap it, or show the tile grid.</p>
+          <p class="wild"><b>In the wild</b> <span>Super Mario Bros.</span> <span>Gradius</span> <span>The Legend of Zelda</span> <span>Mega Man 2</span> <span>Game Boy</span></p>
+        </article>
+      </section>
+
+      <section id="bit16" class="chapter" data-chapter="bit16" data-year="1991" data-name="Mode 7">
+        <article class="card">
+          <p class="era">1991</p>
+          <h2>Mode 7</h2>
+          <p>The Super Nintendo could take one background, a 1024×1024 pixel map, and rotate and scale it with a matrix. On its own that is just a flat map, turning.</p>
+          <p>The trick was HDMA, which rewrote the matrix between scanlines so each row was scaled a little more than the one above. The floor seems to recede to a horizon, though the hardware knew nothing about depth. The same channel painted the sky gradient one line at a time, in 15-bit colour.</p>
+          <p class="how"><b>This frame</b> The ground is a top-down map of the same valley. Turn off per-scanline scale to see what the hardware was really turning.</p>
+          <p class="wild"><b>In the wild</b> <span>F-Zero</span> <span>Pilotwings</span> <span>Super Mario Kart</span> <span>Secret of Mana</span></p>
+        </article>
+      </section>
+
+      <section id="psx" class="chapter" data-chapter="psx" data-year="1996" data-name="PlayStation">
+        <article class="card">
+          <p class="era">1996</p>
+          <h2>Polygons, wobbling</h2>
+          <p>The PlayStation drew textured, lit triangles fast enough for full 3D, using shortcuts you can still recognise. Vertex positions were whole pixels, so models jitter as they move. Textures were spread across the screen without perspective division, so they bend and swim on big polygons.</p>
+          <p>Lighting was computed at each corner and blended across the triangle (Gouraud shading). Colour was 15-bit, smoothed with a fixed dither pattern.</p>
+          <p class="how"><b>This frame</b> 320×240, a few hundred large triangles, all three quirks reproduced in the shader. Turn them off one by one.</p>
+          <p class="wild"><b>In the wild</b> <span>Tomb Raider</span> <span>Crash Bandicoot</span> <span>Final Fantasy VII</span> <span>Metal Gear Solid</span></p>
+        </article>
+      </section>
+
+      <section id="sixth" class="chapter" data-chapter="sixth" data-year="2004" data-name="Shaders">
+        <article class="card">
+          <p class="era">2004</p>
+          <h2>Programmable light</h2>
+          <p>Once GPUs ran a small program for every pixel, lighting stopped being per-vertex. Normal maps tilt each pixel's surface to fake detail the mesh doesn't have. Reflections give metal and water something to mirror, and fog sells the distance.</p>
+          <p>And bloom was everywhere: bright areas are blurred and added back, because the screen still couldn't show anything brighter than white. The same hardware made cel shading possible, with light in flat bands and ink wherever depth jumps.</p>
+          <p class="how"><b>This frame</b> Per-pixel Blinn–Phong, a procedural normal map, sky reflections, height fog and a bright-pass bloom, with no tone mapping.</p>
+          <p class="wild"><b>In the wild</b> <span>Half-Life 2</span> <span>Doom 3</span> <span>Halo 2</span> <span>The Wind Waker</span> <span>Ōkami</span></p>
+        </article>
+      </section>
+
+      <section id="pbr" class="chapter" data-chapter="pbr" data-year="2013" data-name="PBR">
+        <article class="card">
+          <p class="era">2013</p>
+          <h2>Physically based</h2>
+          <p>Hand-tuned highlights gave way to materials described by physical properties: base colour, roughness, metalness. One lighting model behaves plausibly in every scene, and the environment itself lights every surface, pre-filtered for each roughness.</p>
+          <p>Rendering moved to high dynamic range. Light values can far exceed white, and a filmic curve maps them to the screen, as film or a camera sensor would.</p>
+          <p class="how"><b>This frame</b> Image-based lighting from the sunset sky, shadow maps, and a clear-coated hull. Set tone mapping to Clip to watch the sky blow out.</p>
+          <p class="wild"><b>In the wild</b> <span>Killzone Shadow Fall</span> <span>Remember Me</span> <span>Ryse</span> <span>Unreal Engine 4</span></p>
+        </article>
+      </section>
+
+      <section id="raytrace" class="chapter" data-chapter="raytrace" data-year="2018" data-name="Ray tracing">
+        <article class="card">
+          <p class="era">2018</p>
+          <h2>Following the light</h2>
+          <p>Instead of projecting triangles onto the screen, trace rays out of it: into the scene, towards the sun to see whether it is blocked, then off in a random direction to gather light bounced from everything else. Shadows, reflections and coloured bounce light all come from one algorithm.</p>
+          <p>The catch is noise. A frame can only afford a sample or two per pixel, so real-time ray tracing leans on accumulating samples over time and on denoisers.</p>
+          <p class="how"><b>This frame</b> The valley is ray-marched as a heightfield and the ship is 20 triangles. One path per pixel per frame; last frame's samples are reprojected while moving. Stop flying to watch it converge.</p>
+          <p class="wild"><b>In the wild</b> <span>Battlefield V</span> <span>Control</span> <span>Minecraft RTX</span> <span>Cyberpunk 2077</span></p>
+        </article>
+      </section>
+
+      <section id="splats" class="chapter" data-chapter="splats" data-year="2023" data-name="Gaussian splats">
+        <article class="card">
+          <p class="era">2023</p>
+          <h2>No triangles at all</h2>
+          <p>3D Gaussian splatting represents a scene as a cloud of soft, oriented, semi-transparent ellipsoids, usually optimised from photographs. Each frame they are projected to 2D ellipses, sorted back to front and blended.</p>
+          <p>There are no meshes and no materials. Appearance is stored rather than computed, which is why captures look photographic and why relighting them is hard.</p>
+          <p class="how"><b>This frame</b> The valley's lighting was baked into tens of thousands of splats, one colour each (real captures add view-dependent colour). Thin them out or shrink them to see what it's made of.</p>
+          <p class="wild"><b>In the wild</b> <span>Kerbl et al., SIGGRAPH 2023</span> <span>Capture apps</span> <span>Web viewers</span></p>
+        </article>
+      </section>
+
+      <section id="colophon" class="colophon">
+        <div class="colophon-inner">
+          <h2>What comes next is already arriving</h2>
+          <p class="big">Neural networks now upscale frames, invent in-between frames and compress textures. The next chapter may be learned rather than written. Every chapter so far was a clever answer to the same question: how much light can we afford, sixty times a second?</p>
+          <div class="cols">
+            <div>
+              <h3>About this page</h3>
+              <p>Each era is reimplemented from scratch as a live renderer in WebGL 2: there are no screenshots, videos or game assets. All eight share one scene, a valley that repeats every 256 units. That lets a mesh, a ray marcher and a splat cloud agree on the same landscape. Pixel eras draw at their period's resolution; the dynamic resolution scales the rest to keep things smooth.</p>
+              <p>Built with three.js, TypeScript and Vite; hosted on Cloudflare.</p>
+              <p class="author">Designed and built by <b>Pablo Pérez</b> — @pablopsoto</p>
+            </div>
+            <div>
+              <h3>Further reading</h3>
+              <ul>
+                <li><a href="https://www.copetti.org/writings/consoles/" target="_blank" rel="noopener">Rodrigo Copetti — Architecture of consoles</a></li>
+                <li><a href="https://fabiensanglard.net/" target="_blank" rel="noopener">Fabien Sanglard — Game Engine Black Books</a></li>
+                <li><a href="https://iquilezles.org/articles/" target="_blank" rel="noopener">Inigo Quilez — Articles on rendering</a></li>
+                <li><a href="https://www.realtimerendering.com/" target="_blank" rel="noopener">Real-Time Rendering</a></li>
+                <li><a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/" target="_blank" rel="noopener">Kerbl et al. — 3D Gaussian Splatting</a></li>
+                <li><a href="https://blog.selfshadow.com/publications/s2013-shading-course/" target="_blank" rel="noopener">SIGGRAPH 2013 — Physically Based Shading</a></li>
+              </ul>
+            </div>
+          </div>
+          <a class="back" href="#hero">Back to 1979 ↑</a>
+        </div>
+      </section>
+    </main>
+
+    <div id="dock" class="dock" aria-live="off">
+      <span class="dock-era"></span>
+      <div class="dock-controls"></div>
+      <span class="dock-status"></span>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
