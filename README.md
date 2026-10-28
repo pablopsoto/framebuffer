@@ -18,4 +18,4 @@ npm run deploy
 
 ---
 
-Designed and built by Pablo Pérez — [@pablopsoto](https://www.instagram.com/pablopsoto/)
+Designed and built by Pablo Pérez — [pablopsoto.dev](https://pablopsoto.dev)
