@@ -1,6 +1,11 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "framebuffer",
+  // Served on the personal domain; the workers.dev address keeps working too.
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "framebuffer.pablopsoto.dev", "custom_domain": true }
+  ],
   "compatibility_date": "2026-10-01",
   // Static site: everything is served from the built assets, no Worker script needed.
   "assets": {

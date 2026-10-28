@@ -2,7 +2,7 @@
 
 Fifty years of real-time graphics, redrawn live in your browser. One small valley scene is rendered again and again with each era's technique: vector beams, 8-bit tiles, Mode 7, PlayStation wobble, shaders, PBR, ray tracing and Gaussian splats. No game screenshots or assets: every technique is recreated from scratch.
 
-**Live:** https://framebuffer.pablopsoto.workers.dev
+**Live:** https://framebuffer.pablopsoto.dev
 
 ## How it's made
 
